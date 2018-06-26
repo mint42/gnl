@@ -1,9 +1,18 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 100
-#include "libft/libft.h"
+# define BUFF_SIZE 8
+# define BUF(lst) (((t_file *)(lst->content))->buf)
+# define FD(lst) (((t_file *)(lst->content))->fide)
+# include "libft/libft.h"
+# include <fcntl.h>
+# include <unistd.h>
 
-int		fill_line(t_list lst, char **line, int i);
-int		get_next_line(const int fd, char **line);
+typedef struct	s_file
+{
+	char		*buf;
+	int			fide;
+}				t_file;
+
+int				get_next_line(const int fd, char **line);
 
 #endif
