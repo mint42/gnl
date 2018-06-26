@@ -1,13 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/26 12:22:14 by rreedy            #+#    #+#             */
+/*   Updated: 2018/06/26 16:07:02 by rreedy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
+#include <unistd.h>
 
 static int		fill_line(t_list *lst, char **line, int len)
 {
-	BUF(lst) = BUF(lst) + len;
+	BUF(lst) = BUF(lst) + ft_strlen(BUF(lst));
 	if (!(*line = (char *)malloc(len)))
 		return (-1);
 	len = 0;
 	while (*BUF(lst) != '\n')
 		--BUF(lst);
+	ft_putendl(BUF(lst));
 	while (++BUF(lst) && *BUF(lst) != '\n')
 	{
 		*line = BUF(lst);
@@ -58,8 +72,7 @@ int		get_next_line(const int fd, char **line)
 			return (0);
 		if (ft_strchr(BUF(lst) + len, '\n'))
 			return (fill_line(lst, line, len));
-		ft_putendl(BUF(lst));
-		BUF(lst) = ft_realloc(BUF(lst), ft_strlen(BUF(lst)) + BUFF_SIZE);
+		BUF(lst) = ft_realloc(BUF(lst), len + BUFF_SIZE);
 	}
 	return (-1); 
 }

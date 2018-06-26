@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/15 14:35:08 by rreedy            #+#    #+#             */
-/*   Updated: 2018/06/06 21:18:37 by rreedy           ###   ########.fr       */
+/*   Created: 2018/06/01 10:49:30 by rreedy            #+#    #+#             */
+/*   Updated: 2018/06/02 16:59:02 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	char	*s;
+	t_list *link;
 
-	if (!s1 || !s2)
+	link = (t_list *)ft_memalloc(sizeof(t_list));
+	if (!link)
 		return (0);
-	s = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
-	if (s)
+	link->next = 0;
+	if (!content)
 	{
-		ft_strcpy(s, s1);
-		ft_strcat(s, s2);
+		link->content = 0;
+		link->content_size = 0;
+		return (link);
 	}
-	return (s);
+	link->content = ft_memalloc(content_size);
+	if (!link->content)
+	{
+		ft_memdel((void **)&link);
+		return (0);
+	}
+	ft_memcpy(link->content, content, content_size);
+	link->content_size = content_size;
+	return (link);
 }

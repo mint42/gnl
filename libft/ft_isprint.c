@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/15 14:37:50 by rreedy            #+#    #+#             */
-/*   Updated: 2018/06/06 21:18:26 by rreedy           ###   ########.fr       */
+/*   Created: 2018/04/18 13:27:02 by rreedy            #+#    #+#             */
+/*   Updated: 2018/05/14 19:59:58 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(const char *s)
+int		ft_isprint(int c)
 {
-	int		i;
-	int		j;
-
-	if (!s)
-		return (0);
-	i = ft_strlen(s) - 1;
-	j = 0;
-	while (s[i] == '\t' || s[i] == '\n' || s[i] == ' ')
-		--i;
-	while (s[j] == '\t' || s[j] == '\n' || s[j] == ' ')
-		++j;
-	return (j < i ? ft_strsub(s, j, i - j + 1) : ft_strnew(0));
+	return ((c >= 32 && c <= 126) ? 1 : 0);
 }
