@@ -11,16 +11,16 @@
 # **************************************************************************** #
 
 NAME := libft.a
-CFLAGS := -Wall -Wextra -Werror
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.o)
+INCLUDE_DIR := ./includes
+CFLAGS += -Wall -Wextra -Werror -I$(INCLUDE_DIR)
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(SRCS)
-	$(CC) $(CFLAGS) -c $(SRCS)
+$(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 

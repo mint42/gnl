@@ -1,25 +1,33 @@
 #include "get_next_line.h"
 
-static int		fill_line(t_list *lst, char **line, int len)
+static char		*ft_realloc(char *s, int size)
 {
-	BUF(lst) = BUF(lst) + len;
-	if (!(*line = (char *)malloc(len)))
-		return (-1);
-	len = 0;
-	while (*BUF(lst) != '\n')
-		--BUF(lst);
-	while (++BUF(lst) && *BUF(lst) != '\n')
-	{
-		*line = BUF(lst);
-		++(*line);
-	}
-	**line = '\0';
-	return (1);
+	char	*str;
+
+	str = ft_strnew(size);
+	ft_strncpy(str, s, size);
+	ft_strdel(&s);
+	return (str);
 }
 
-static char	*ft_realloc(char *s, int size)
+static int		fill_line(char	**line, char **str, int red)
 {
-	return (ft_strcpy((char *)malloc(size), s));
+	int		len;
+
+	if (!*str)
+		return (-1);
+	else if (ft_strlen(*str) == 0)
+		return (0);
+	*line = ft_strnew(ft_strlen(*str));
+	len = ft_strchr(*str, '\n') ? ft_strchr(*str, '\n') - *str : BUFF_SIZE;
+	if (!*line || red == -1)
+		return (-1);
+	*line = ft_strncpy(*line, *str, len);
+	if (ft_strlen(*str) - len)
+		*str = ft_strsub(*str, len + 1, BUFF_SIZE + (ft_strlen(*str) - len));
+	else
+		return (0);
+	return (*str ? 1 : 0);
 }
 
 static t_file	*newfile(int fd)
@@ -34,32 +42,28 @@ static t_file	*newfile(int fd)
 	return (newf);
 }
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	static t_list	*lst;
+	int				red;
 	int				len;
 
-	if (!fd || fd < 0 || !line)
+	red = BUFF_SIZE + 1;
+	if (fd < 0 || !line)
 		return (-1);
-	while (lst && lst->content)
-	{
-		if (FD(lst) == fd)
-			break;
+	while (lst && lst->content && FD(lst) != fd)
 		lst = lst->next;
-	}
 	if (!lst)
 		lst = ft_lstnew(0,0);
 	if (!lst->content)
 		lst->content = newfile(fd);
 	while (BUF(lst))
-	{
+	{	
 		len = ft_strlen(BUF(lst));
-		if (!read(fd, BUF(lst) + len, BUFF_SIZE))
-			return (0);
-		if (ft_strchr(BUF(lst) + len, '\n'))
-			return (fill_line(lst, line, len));
-		ft_putendl(BUF(lst));
+		if (ft_strchr(BUF(lst), '\n') || red < BUFF_SIZE)
+			return (fill_line(line, &BUF(lst), red));
+		red = read(fd, BUF(lst) + len, BUFF_SIZE);
 		BUF(lst) = ft_realloc(BUF(lst), ft_strlen(BUF(lst)) + BUFF_SIZE);
 	}
-	return (-1); 
+	return (-1);
 }

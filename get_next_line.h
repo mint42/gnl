@@ -3,7 +3,7 @@
 # define BUFF_SIZE 8
 # define BUF(lst) (((t_file *)(lst->content))->buf)
 # define FD(lst) (((t_file *)(lst->content))->fide)
-# include "libft/libft.h"
+# include "./libft/includes/libft.h"
 # include <fcntl.h>
 # include <unistd.h>
 
