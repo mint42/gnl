@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:22:14 by rreedy            #+#    #+#             */
-/*   Updated: 2018/07/12 16:46:18 by rreedy           ###   ########.fr       */
+/*   Updated: 2018/07/12 17:44:22 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ static char		*ft_realloc(char *s, int in, int size)
 	return (str);
 }
 
-static int		fill_line(char **line, char **str, int red)
+static int		fill_line(char **line, char **s, int red)
 {
 	int		len;
 
-	if (!*str)
+	if (!*s)
 		return (-1);
-	if (!red && !ft_strlen(*str))
+	if (!red && !ft_strlen(*s))
 		return (0);
-	*line = ft_strnew(ft_strlen(*str));
-	len = ft_strchr(*str, '\n') ? ft_strchr(*str, '\n') - *str : BUFF_SIZE;
+	len = ft_strchr(*s, '\n') ? ft_strchr(*s, '\n') - *s : ft_strlen(*s);
+	*line = ft_strnew(len);
 	if (!*line || red == -1)
 		return (-1);
-	*line = ft_strncpy(*line, *str, len);
-	*str = ft_realloc(*str, len + 1, BUFF_SIZE + (ft_strlen(*str) - len));
-//	*str = ft_strsub(*str, len + 1, BUFF_SIZE + (ft_strlen(*str) - len));
-	return (*str ? 1 : -1);
+	*line = ft_strncpy(*line, *s, len);
+	*s = ft_realloc(*s, len + 1, BUFF_SIZE + (ft_strlen(*s) - len));
+	return (*s ? 1 : -1);
 }
 
 static int		get_file(t_list **lst, int fd)
