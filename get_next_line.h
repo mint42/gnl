@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:22:23 by rreedy            #+#    #+#             */
-/*   Updated: 2018/07/14 13:09:03 by rreedy           ###   ########.fr       */
+/*   Updated: 2018/07/14 16:46:33 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@
 # define BUF(lst) (((t_file *)(lst->content))->buf)
 # include "./libft/includes/libft.h"
 # include <fcntl.h>
+# include <string.h>
+# include <strings.h>
+# include <stdlib.h>
 # include <unistd.h>
+# include <ctype.h>
+# include <math.h>
+# include <stdio.h>
+# include <regex.h>
+# include <assert.h>
 
 typedef struct	s_file
 {
