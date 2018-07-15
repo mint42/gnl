@@ -6,22 +6,22 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:22:14 by rreedy            #+#    #+#             */
-/*   Updated: 2018/07/14 13:02:10 by rreedy           ###   ########.fr       */
+/*   Updated: 2018/07/14 17:44:17 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 
-static char		*stresize(char *s, int in, int size)
+static char		*stresize(char **s, int in, int size)
 {
 	char	*str;
 
 	str = ft_strnew(size);
 	if (!str)
 		return (0);
-	ft_strncpy(str, s + in, size);
-	ft_strdel(&s);
+	ft_strncpy(str, *s + in, size);
+	ft_strdel(s);
 	return (str);
 }
 
@@ -38,7 +38,7 @@ static int		fill_line(char **line, char **s, int red)
 	if (!*line || red == -1)
 		return (-1);
 	*line = ft_strncpy(*line, *s, len);
-	*s = stresize(*s, len + 1, BUFF_SIZE + (ft_strlen(*s) - len));
+	*s = stresize(s, len + 1, BUFF_SIZE + (ft_strlen(*s) - len));
 	return (*s ? 1 : -1);
 }
 
@@ -86,7 +86,7 @@ int				get_next_line(const int fd, char **line)
 			return (fill_line(line, &BUF(lst), red));
 		red = read(fd, BUF(lst) + ft_strlen(BUF(lst)), BUFF_SIZE);
 		if (red == BUFF_SIZE)
-			BUF(lst) = stresize(BUF(lst), 0, ft_strlen(BUF(lst)) + BUFF_SIZE);
+			BUF(lst) = stresize(&BUF(lst), 0, ft_strlen(BUF(lst)) + BUFF_SIZE);
 	}
 	return (-1);
 }

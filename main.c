@@ -20,12 +20,12 @@ int		main(void)
 	int 	fd2;
 	int 	fd3;
 	int		diff_file_size;
-//	int		ret;
+	int		ret;
 	char	*line;
 
 /* ************************************************************************** */
 /*																			  */
-/*	main using stdin														  */
+/*	main using argc/argv													  */
 /*																			  */
 /* ************************************************************************** */
 /*
@@ -47,17 +47,18 @@ int		main(void)
 /*	moulitest test 41_hard_test_large_file.spec.c without timeout			  */
 /*																			  */
 /* ************************************************************************** */
-/*
+
     system("mkdir -p sandbox");
 	system("openssl rand -out sandbox/large_file.txt -base64 $((50 * 1000 * 3/4)) 2> /dev/null");
 
 	fd = open("sandbox/large_file.txt", O_RDONLY);
 	fd2 = open("sandbox/large_file.txt.mine", O_CREAT | O_RDWR | O_TRUNC, 0755);
 
-	while (get_next_line(fd, &line) == 1)
+	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 	    write(fd2, line, strlen(line));
 	    write(fd2, "\n", 1);
+		ft_strdel(&line);
 	}
 
 	close(fd);
@@ -71,13 +72,13 @@ int		main(void)
 	if (diff_file_size == 0)
 		ft_putstr("diff_file_size == 0");
 
-*/
+
 /* ************************************************************************** */
 /*																			  */
 /*	moulitest test 42_hard_test_one_big_fat_line.spec.c without timeout		  */
 /*																			  */
 /* ************************************************************************** */    
-	
+/*	
     system("mkdir -p sandbox");
 	system("openssl rand -base64 $((30 * 1000 * 3/4)) | tr -d '\n' | tr -d '\r' > sandbox/one_big_fat_line.txt");
 	system("echo '\n' >> sandbox/one_big_fat_line.txt");
@@ -89,6 +90,7 @@ int		main(void)
 	{
 	    write(fd2, line, strlen(line));
 	    write(fd2, "\n", 1);
+		ft_strdel(&line);
 	}
 	if (line)
 		write(fd2, line, strlen(line));
@@ -102,5 +104,7 @@ int		main(void)
 
 	if (diff_file_size == 0)
 		ft_putstr("diff_file_size == 0");
+*/
+	sleep(15);
 	return (0);
 }
