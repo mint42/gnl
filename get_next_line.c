@@ -29,13 +29,12 @@ static int		fill_line(char **line, char **s, int red)
 {
 	int		len;
 
-	if (!*s)
+	if (!*s || red == -1)
 		return (-1);
 	if (!red && !ft_strlen(*s))
 		return (0);
 	len = ft_strchr(*s, '\n') ? ft_strchr(*s, '\n') - *s : ft_strlen(*s);
-	*line = ft_strnew(len);
-	if (!*line || red == -1)
+	if (!(*line = ft_strnew(len))
 		return (-1);
 	*line = ft_strncpy(*line, *s, len);
 	*s = stresize(s, len + 1, BUFF_SIZE + (ft_strlen(*s) - len));
