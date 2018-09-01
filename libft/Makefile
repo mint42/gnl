@@ -6,13 +6,13 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/31 16:53:28 by rreedy            #+#    #+#              #
-#    Updated: 2018/08/31 17:45:39 by rreedy           ###   ########.fr        #
+#    Updated: 2018/08/31 18:12:03 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libft.a
 
-COBJS := $(patsubst %.c,%.o,$(wildcard ./*.c))
+COBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 CFLAGS := -Wall -Wextra -Werror -I./includes
 
 .PHONY: all clean fclean re
