@@ -6,12 +6,11 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 12:22:14 by rreedy            #+#    #+#             */
-/*   Updated: 2018/07/14 17:44:17 by rreedy           ###   ########.fr       */
+/*   Updated: 2018/08/31 15:54:50 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
 
 static char		*stresize(char **s, int in, int size)
 {
@@ -29,12 +28,13 @@ static int		fill_line(char **line, char **s, int red)
 {
 	int		len;
 
-	if (!*s || red == -1)
+	if (!*s)
 		return (-1);
 	if (!red && !ft_strlen(*s))
 		return (0);
 	len = ft_strchr(*s, '\n') ? ft_strchr(*s, '\n') - *s : ft_strlen(*s);
-	if (!(*line = ft_strnew(len))
+	*line = ft_strnew(len);
+	if (!*line || red == -1)
 		return (-1);
 	*line = ft_strncpy(*line, *s, len);
 	*s = stresize(s, len + 1, BUFF_SIZE + (ft_strlen(*s) - len));

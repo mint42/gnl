@@ -5,27 +5,26 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/04/18 14:31:20 by rreedy            #+#    #+#              #
-#    Updated: 2018/06/06 20:27:05 by rreedy           ###   ########.fr        #
+#    Created: 2018/08/31 16:53:28 by rreedy            #+#    #+#              #
+#    Updated: 2018/08/31 17:45:39 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libft.a
-SRCS := $(wildcard *.c)
-OBJS := $(SRCS:.c=.o)
-INCLUDE_DIR := ./includes
-CFLAGS += -Wall -Wextra -Werror -I$(INCLUDE_DIR)
+
+COBJS := $(patsubst %.c,%.o,$(wildcard ./*.c))
+CFLAGS := -Wall -Wextra -Werror -I./includes
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(NAME): $(COBJS)
+	ar rc $(NAME) $(COBJS)
 	ranlib $(NAME)
 
 clean:
-	@- $(RM) $(OBJS)
+	@- $(RM) $(COBJS)
 
 fclean: clean
 	@- $(RM) $(NAME)
