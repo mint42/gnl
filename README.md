@@ -16,9 +16,9 @@ Then run the program using `./a.out`.
 
 ## Notes
 
-This completed GNL project is included in, and maintained by [my personal 42 library](https://github.com/mint42/libft). This repository is only here for record of the submitted project.
+This completed GNL project is included in, and maintained by, [my 42 library](https://github.com/mint42/libft). This repository is only here for record of the submitted project, and for testing.
 
-The test case provided is pretty bare, it just reads and prints the EXAMPLE_MAIN.c file. Feel free to play with the file.
+The test case provided is pretty bare, it just reads and prints the EXAMPLE_MAIN.c file. Feel free to play with the file and let me know if you break anything.
 
 ## Authors
 
